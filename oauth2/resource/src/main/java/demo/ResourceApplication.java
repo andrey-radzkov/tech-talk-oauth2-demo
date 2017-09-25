@@ -15,21 +15,19 @@ import java.util.UUID;
 @EnableResourceServer
 public class ResourceApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(ResourceApplication.class, args);
+    }
+
     @RequestMapping("/")
     public Message home(HttpServletRequest request,
                         HttpServletResponse response) {
         return new Message("Hello World");
     }
 
-
     @RequestMapping("/custom")
     public Message custom() {
         return new Message("Hello World");
-    }
-
-
-    public static void main(String[] args) {
-        SpringApplication.run(ResourceApplication.class, args);
     }
 
     class Message {

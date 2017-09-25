@@ -35,6 +35,10 @@ import java.security.Principal;
 @EnableResourceServer
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
 
+    public static void main(String[] args) {
+        SpringApplication.run(AuthserverApplication.class, args);
+    }
+
     @RequestMapping("/user")
     @ResponseBody
     public Principal user(Principal user) {
@@ -47,10 +51,6 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         registry.addViewController("/oauth/confirm_access").setViewName("authorize");
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(AuthserverApplication.class, args);
-    }
-
     @Configuration
     @Order(-20)
     protected static class LoginConfig extends WebSecurityConfigurerAdapter {
@@ -61,11 +61,19 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             // @formatter:off
-            http
+            http.authorizeRequests()
+                    .antMatchers("/login",
+                            "/oauth/authorize",
+                            "/oauth/confirm_access",
+                            "/oauth/check_token",
+                            "/oauth/token_info",
+                            "/oauth/token",
+                            "/oauth/token_key",
+                            "/login"
+                    ).permitAll().and()
                     .formLogin().loginPage("/login").permitAll()
                     .and()
                     .requestMatchers()
-                    .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/check_token", "/token_key", "/oauth/check_token", "/oauth/token_key")
                     .and()
                     .authorizeRequests().anyRequest().authenticated();
             // @formatter:on
