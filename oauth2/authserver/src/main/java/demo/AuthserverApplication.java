@@ -61,19 +61,11 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             // @formatter:off
-            http.authorizeRequests()
-                    .antMatchers("/login",
-                            "/oauth/authorize",
-                            "/oauth/confirm_access",
-                            "/oauth/check_token",
-                            "/oauth/token_info",
-                            "/oauth/token",
-                            "/oauth/token_key",
-                            "/login"
-                    ).permitAll().and()
+            http
                     .formLogin().loginPage("/login").permitAll()
                     .and()
                     .requestMatchers()
+                    .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/check_token", "/token_key", "/oauth/check_token", "/oauth/token_key")
                     .and()
                     .authorizeRequests().anyRequest().authenticated();
             // @formatter:on
