@@ -5,7 +5,7 @@ angular.module('hello', ['ngRoute']).config(function ($routeProvider, $httpProvi
         controller: 'home',
         controllerAs: 'controller'
     }).when('/', {
-        templateUrl: 'first.html',
+        templateUrl: 'home.html',
         controller: 'home',
         controllerAs: 'controller'
     }).otherwise('/');

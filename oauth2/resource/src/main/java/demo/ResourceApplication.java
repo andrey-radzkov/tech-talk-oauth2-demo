@@ -3,6 +3,7 @@ package demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,12 +20,14 @@ public class ResourceApplication {
         SpringApplication.run(ResourceApplication.class, args);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping("/")
     public Message home(HttpServletRequest request,
                         HttpServletResponse response) {
         return new Message("Hello World");
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping("/custom")
     public Message custom() {
         return new Message("Hello World");

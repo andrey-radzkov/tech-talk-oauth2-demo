@@ -9,7 +9,7 @@
 </div>
 </#if>
 <div class="container">
-    <form role="form" action="login" method="post">
+    <form role="form" action="login" method="post" style="width: 300px;margin: 50px auto;">
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" class="form-control" id="username" name="username"/>
