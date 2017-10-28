@@ -1,5 +1,6 @@
 package demo;
 
+import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -15,19 +16,19 @@ import java.util.UUID;
 @RestController
 @EnableResourceServer
 public class ResourceApplication {
+    private static Logger LOG = Logger.getLogger(ResourceApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(ResourceApplication.class, args);
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping("/")
     public Message home(HttpServletRequest request,
                         HttpServletResponse response) {
+        LOG.info("Authorization token: " + request.getHeader("Authorization"));
         return new Message("Hello World");
     }
 
-    @CrossOrigin(origins = "*")
     @RequestMapping("/custom")
     public Message custom() {
         return new Message("Hello World");

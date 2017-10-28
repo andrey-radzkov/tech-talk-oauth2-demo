@@ -12,6 +12,7 @@
         <module>authserver</module>
         <module>ui</module>
         <module>resource</module>
+        <module>social-login</module>
     </modules>
 
 </project>
