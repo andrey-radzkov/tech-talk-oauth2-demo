@@ -20,12 +20,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -52,6 +50,17 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/oauth/confirm_access").setViewName("authorize");
+    }
+
+    @Bean
+    public FilterRegistrationBean someFilterRegistration() {
+
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new RequestLogFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("RequestLogFilter");
+        registration.setOrder(1);
+        return registration;
     }
 
     @Configuration
@@ -135,16 +144,5 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
                     "isAuthenticated()");
         }
 
-    }
-
-    @Bean
-    public FilterRegistrationBean someFilterRegistration() {
-
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new RequestLogFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("RequestLogFilter");
-        registration.setOrder(1);
-        return registration;
     }
 }
