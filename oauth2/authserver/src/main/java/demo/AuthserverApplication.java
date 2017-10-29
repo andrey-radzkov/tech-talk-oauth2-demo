@@ -72,6 +72,18 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
                     .and()
 
                     .authorizeRequests().anyRequest().authenticated();
+
+//            http
+//                    .formLogin().loginPage("/login").permitAll()
+//                    .and().authorizeRequests()
+//                    .antMatchers("/login"
+//                            , "/oauth/authorize"
+//                            , "/oauth/confirm_access"
+//                            , "/check_token", "/token_key"
+//                            , "/oauth/check_token", "/oauth/token_key")
+//                    .permitAll().and()
+//
+//                    .authorizeRequests().anyRequest().authenticated();
             // @formatter:on
         }
 
