@@ -34,8 +34,8 @@ class RequestLogFilter extends GenericFilterBean {
             headerAuth = headerAuth.replace("Basic", "");
             headerAuth = org.apache.commons.codec.binary.StringUtils.newStringUtf8(Base64.decodeBase64(headerAuth));
         }
-        headerAuth = !"".equals(headerAuth) ? headerAuth + " " : "";
-        LOG.info(headerAuth + servletRequest.getMethod() + " " + servletRequest.getRequestURI() + queryString + " " + postString);
+        headerAuth = !"".equals(headerAuth) ? " " + headerAuth : "";
+        LOG.info(servletRequest.getMethod() + " " + servletRequest.getRequestURI() + queryString + headerAuth + " " + postString);
 
         chain.doFilter(req, res); // always continue
     }
