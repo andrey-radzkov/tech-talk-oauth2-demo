@@ -70,7 +70,6 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
                     .requestMatchers()
                     .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/check_token", "/token_key", "/oauth/check_token", "/oauth/token_key")
                     .and()
-//                    .addFilterBefore(new RequestLogFilter(), OncePerRequestFilter.class)
 
                     .authorizeRequests().anyRequest().authenticated();
             // @formatter:on
