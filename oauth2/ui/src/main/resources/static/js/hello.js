@@ -22,16 +22,17 @@ angular.module('hello', ['ngRoute']).config(function ($routeProvider, $httpProvi
         self.tab = function (route) {
             return $route.current && route === $route.current.controller;
         };
+        $rootScope.authenticated = true;
 
-        $http.get('user').then(function (response) {
-            if (response.data.name) {
-                $rootScope.authenticated = true;
-            } else {
-                $rootScope.authenticated = false;
-            }
-        }, function () {
-            $rootScope.authenticated = false;
-        });
+        // $http.get('user').then(function (response) {
+        //     if (response.data.name) {
+        //         $rootScope.authenticated = true;
+        //     } else {
+        //         $rootScope.authenticated = false;
+        //     }
+        // }, function () {
+        //     $rootScope.authenticated = false;
+        // });
 
         self.credentials = {};
 
