@@ -1,5 +1,8 @@
 package demo;
 
+import java.security.KeyPair;
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -20,17 +24,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import java.security.KeyPair;
-import java.security.Principal;
 
 @SpringBootApplication
 @Controller
@@ -39,17 +38,20 @@ import java.security.Principal;
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
+
         SpringApplication.run(AuthserverApplication.class, args);
     }
 
     @RequestMapping("/user")
     @ResponseBody
     public Principal user(Principal user) {
+
         return user;
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/oauth/confirm_access").setViewName("authorize");
     }
@@ -58,37 +60,33 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
     @Order(-20)
     protected static class LoginConfig extends WebSecurityConfigurerAdapter {
 
+
         @Autowired
         private AuthenticationManager authenticationManager;
 
         @Override
+        public void configure(WebSecurity web) throws Exception {
+
+            web.ignoring().mvcMatchers("/oauth/check_token", "/oauth/token_key");
+        }
+
+        @Override
         protected void configure(HttpSecurity http) throws Exception {
-            // @formatter:off
+
             http
                     .formLogin().loginPage("/login").permitAll()
                     .and()
                     .requestMatchers()
-                    .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/check_token", "/token_key", "/oauth/check_token", "/oauth/token_key")
+                    .antMatchers("/login", "/oauth/authorize"
+                            , "/oauth/confirm_access", "/check_token", "/token_key"
+                            , "/oauth/check_token", "/oauth/token_key")
                     .and()
-
-                    .authorizeRequests().anyRequest().authenticated();
-
-//            http
-//                    .formLogin().loginPage("/login").permitAll()
-//                    .and().authorizeRequests()
-//                    .antMatchers("/login"
-//                            , "/oauth/authorize"
-//                            , "/oauth/confirm_access"
-//                            , "/check_token", "/token_key"
-//                            , "/oauth/check_token", "/oauth/token_key")
-//                    .permitAll().and()
-//
-//                    .authorizeRequests().anyRequest().authenticated();
-            // @formatter:on
+                    .authorizeRequests().anyRequest().authenticated().and();
         }
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
             auth.parentAuthenticationManager(authenticationManager);
         }
     }
@@ -103,6 +101,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter() {
+
             JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
             KeyPair keyPair = new KeyStoreKeyFactory(
                     new ClassPathResource("keystore.jks"), "foobar".toCharArray())
@@ -111,8 +110,10 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
             return converter;
         }
 
+
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
             clients.inMemory()
                     .withClient("acme")
                     .secret("acmesecret")
@@ -124,6 +125,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints)
                 throws Exception {
+
             endpoints.authenticationManager(authenticationManager)
                     .accessTokenConverter(jwtAccessTokenConverter());
         }
@@ -131,8 +133,9 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
         @Override
         public void configure(AuthorizationServerSecurityConfigurer oauthServer)
                 throws Exception {
+
             oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
-                    "isAuthenticated()");
+                    "permitAll()");
         }
 
     }
