@@ -19,6 +19,7 @@ class RequestLogFilter extends GenericFilterBean {
     private static Logger LOG = Logger.getLogger(RequestLogFilter.class);
 
 
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
             ServletException {
