@@ -26,6 +26,9 @@ zuul:
     resource:
       path: /resource/**
       url: http://localhost:9000/resource
+    other-resource:
+      path: /other-resource/**
+      url: http://localhost:9001/other-resource
     user:
       path: /user/**
       url: http://localhost:9999/uaa/user

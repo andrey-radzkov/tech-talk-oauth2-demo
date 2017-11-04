@@ -47,5 +47,8 @@ angular.module('hello', ['ngRoute']).config(function ($routeProvider, $httpProvi
     var self = this;
     $http.get('resource/').then(function (response) {
         self.greeting = response.data;
+    });
+    $http.get('other-resource/').then(function (response) {
+        self.greeting2 = response.data;
     })
 });
