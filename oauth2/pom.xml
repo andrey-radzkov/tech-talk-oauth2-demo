@@ -11,6 +11,7 @@
     <modules>
         <module>authserver</module>
         <module>ui</module>
+        <module>ui2</module>
         <module>resource</module>
         <module>other-resource</module>
         <module>social-login</module>
