@@ -1,4 +1,6 @@
 debug: true
+server:
+  port: 8180
 
 spring:
   aop:
@@ -12,8 +14,8 @@ security:
     client:
       accessTokenUri: http://localhost:9999/uaa/oauth/token
       userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
-      clientId: acme
-      clientSecret: acmesecret
+      clientId: acme2
+      clientSecret: acmesecret2
     resource:
       jwt:
         keyValue: |
