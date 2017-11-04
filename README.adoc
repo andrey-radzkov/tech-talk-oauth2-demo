@@ -16,6 +16,6 @@ Than for basic example run
 2. resource (ResourceApplication.java)
 3. ui (UiApplication.java)
 
-other-resource (OtherResourceApplication.java) will demonstrate SSO.
+other-resource (OtherResourceApplication.java) and ui2 (UiApplication2.java) will demonstrate SSO.
 
 
