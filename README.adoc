@@ -9,7 +9,7 @@ projects: [spring-security,spring-security-oauth]
 
 = Spring Security and Angular JS
 
-Run first "mvnw clean install"
+Run first "mvn clean install"
 
 Than for basic example run
 1. authserver (AuthserverApplication.java)
