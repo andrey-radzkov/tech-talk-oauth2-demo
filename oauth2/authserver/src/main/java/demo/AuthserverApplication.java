@@ -128,7 +128,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
             clients.inMemory()
                     .withClient("acme")
                     .secret("acmesecret")
-                    .autoApprove(true)
+                    .autoApprove(false)
                     .authorizedGrantTypes("authorization_code", "implicit", "refresh_token",
                             "password").scopes("openid")
                     .and().withClient("acme2")
