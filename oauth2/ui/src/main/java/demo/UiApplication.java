@@ -10,7 +10,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
@@ -38,7 +37,13 @@ public class UiApplication extends WebSecurityConfigurerAdapter {
         http
                 .logout().and()
                 .authorizeRequests()
-                .antMatchers("/static/js/index.html", "/static/js/home.html", "/", "/login", "/implicit", "/implicit.html").permitAll()
+                .antMatchers("/static/js/index.html"
+                        , "/static/js/home.html"
+                        , "/home.html"
+                        , "/"
+                        , "/login"
+                        , "/implicit"
+                        , "/implicit.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf()

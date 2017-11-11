@@ -37,7 +37,13 @@ public class UiApplication2 extends WebSecurityConfigurerAdapter {
         http
                 .logout().and()
                 .authorizeRequests()
-                .antMatchers("/static/js/index.html", "/static/js/home.html", "/", "/login", "/implicit", "/implicit.html").permitAll()
+                .antMatchers("/static/js/index.html"
+                        , "/static/js/home.html"
+                        , "/home.html"
+                        , "/"
+                        , "/login"
+                        , "/implicit"
+                        , "/implicit.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf()

@@ -22,7 +22,7 @@ angular.module('hello', ['ngRoute']).config(function ($routeProvider, $httpProvi
         self.tab = function (route) {
             return $route.current && route === $route.current.controller;
         };
-        $rootScope.authenticated = true;
+        $rootScope.authenticated = false;
 
         // $http.get('user').then(function (response) {
         //     if (response.data.name) {
@@ -43,12 +43,14 @@ angular.module('hello', ['ngRoute']).config(function ($routeProvider, $httpProvi
             });
         }
 
-    }).controller('home', function ($http) {
+    }).controller('home', function ($rootScope, $http) {
     var self = this;
     $http.get('resource/').then(function (response) {
+        $rootScope.authenticated = true;
         self.greeting = response.data;
     });
     $http.get('other-resource/').then(function (response) {
+        $rootScope.authenticated = true;
         self.greeting2 = response.data;
     })
 });
