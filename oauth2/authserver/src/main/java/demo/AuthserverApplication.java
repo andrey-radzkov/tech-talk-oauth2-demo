@@ -117,6 +117,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
             KeyPair keyPair = new KeyStoreKeyFactory(
                     new ClassPathResource("keystore.jks"), "foobar".toCharArray())
                     .getKeyPair("test");
+            //new String(Base64.encode(keyPair.getPublic().getEncoded())) //public key generation
             converter.setKeyPair(keyPair);
             return converter;
         }
