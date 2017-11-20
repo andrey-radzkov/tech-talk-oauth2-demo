@@ -14,6 +14,7 @@ security:
       userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
+      scope: resource-read
     resource:
       jwt:
         keyValue: |
