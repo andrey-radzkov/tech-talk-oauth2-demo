@@ -134,7 +134,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
                     //   .redirectUris("http://localhost:8080/login")  TODO: uncomment to show fix
                     .authorizedGrantTypes("authorization_code", "implicit", "refresh_token", "password")
                     .scopes("resource-read", "write")
-                    .resourceIds("resource-id1")
+                    .resourceIds("resource-id1", "resource-id2")
                     .and().withClient("acme2")
                     .secret("acmesecret2")
                     .autoApprove(false)
