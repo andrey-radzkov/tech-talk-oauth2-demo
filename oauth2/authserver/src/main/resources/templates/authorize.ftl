@@ -9,7 +9,7 @@
     <p>
         Do you authorize "${authorizationRequest.clientId}" at "${authorizationRequest.redirectUri}" to access your
         protected resources<br>
-        with scope <b>${authorizationRequest.scope?join(", ")}.</b>
+        with scope <b>${authorizationRequest.scope?join(", ")}?</b>
     </p>
     <form id="confirmationForm" name="confirmationForm"
           action="../oauth/authorize" method="post" class="pull-left" style="margin-right:15px;">
