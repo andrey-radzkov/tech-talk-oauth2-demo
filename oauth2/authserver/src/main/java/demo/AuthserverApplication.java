@@ -132,8 +132,7 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
                     .autoApprove(false)
                     .accessTokenValiditySeconds(300)
                     //   .redirectUris("http://localhost:8080/login")  TODO: uncomment to show fix
-                    .authorizedGrantTypes("authorization_code", "implicit", "refresh_token",
-                            "password")
+                    .authorizedGrantTypes("authorization_code", "implicit", "refresh_token", "password")
                     .scopes("resource-read", "write")
                     .resourceIds("resource-id1")
                     .and().withClient("acme2")
@@ -143,7 +142,8 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
                     .authorizedGrantTypes("authorization_code", "implicit", "refresh_token",
                             "password")
                     .scopes("resource-read", "write")
-                    .resourceIds("resource-id2");
+                    .resourceIds("resource-id2")
+            ;
         }
 
         @Override
