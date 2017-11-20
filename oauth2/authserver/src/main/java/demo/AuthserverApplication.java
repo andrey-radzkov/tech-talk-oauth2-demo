@@ -1,8 +1,5 @@
 package demo;
 
-import java.security.KeyPair;
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,6 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.security.KeyPair;
+import java.security.Principal;
 
 @SpringBootApplication
 @Controller
@@ -131,15 +131,19 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
                     .secret("acmesecret")
                     .autoApprove(false)
                     .accessTokenValiditySeconds(300)
-                 //   .redirectUris("http://localhost:8080/login")  TODO: uncomment to show fix
+                    //   .redirectUris("http://localhost:8080/login")  TODO: uncomment to show fix
                     .authorizedGrantTypes("authorization_code", "implicit", "refresh_token",
-                            "password").scopes("resource-read", "write").resourceIds("resource-id1")
+                            "password")
+                    .scopes("resource-read", "write")
+                    .resourceIds("resource-id1")
                     .and().withClient("acme2")
                     .secret("acmesecret2")
                     .autoApprove(false)
                     .accessTokenValiditySeconds(300)
                     .authorizedGrantTypes("authorization_code", "implicit", "refresh_token",
-                            "password").scopes("resource-read", "write").resourceIds("resource-id2");
+                            "password")
+                    .scopes("resource-read", "write")
+                    .resourceIds("resource-id2");
         }
 
         @Override
