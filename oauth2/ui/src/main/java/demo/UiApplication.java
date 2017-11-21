@@ -37,6 +37,7 @@ public class UiApplication extends WebSecurityConfigurerAdapter {
         http
                 .logout().and()
                 .authorizeRequests()
+                //TODO: just remove for auth on all site
                 .antMatchers("/static/js/index.html"
                         , "/static/js/home.html"
                         , "/home.html"
